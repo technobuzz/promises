@@ -1,0 +1,83 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<!-- Documentation can be found here: http://mattgreer.org/articles/promises-in-wicked-detail/ -->
+
+
+<style type="text/css">
+body{font-family:Arial, Helvetica, sans-serif !important; font-size:12px !important; background-color:#FFF !important;}
+div.dp-popup{background:#FFF !important;}
+a.dp-choose-date{ float:right; margin:0; margin-left:4px;}
+body		{ margin:0; padding:0; }
+p			{ margin:0; padding:0; }
+#testform	{ margin:0; padding:0; margin:12px 0 0 12px; }
+</style>
+
+</head>
+<body>
+    Do Something:<p id="doSomething"></p>
+	Callback action:<p id="demo"></p>
+
+	Do Something:<p id="doSomethingPromise"></p>
+	Callback action:<p id="demoPromise"></p>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript">	
+	
+	//$('p').hide('slow', function () {alert('now hidden with inline function');});
+	    	
+	
+	
+	var haveGoodDay  = function (food, drink, callback) {
+      
+	  
+	  var str = 'have a good day with ' + food + drink;
+	  
+	  $('#doSomething').html(str);
+
+      console.log('have a good day with ');
+      if (callback && typeof(callback) === "function"){
+           callback();
+      };
+    }
+	haveGoodDay('bagel' , 
+	            'coffee' , 
+				function () { 
+				
+				    console.log('result: had a good day'); 
+					$('#demo').html('completed: had a good day');
+				}
+				);
+	
+	function haveGoodDayP1(food1,food2) {
+		var str = 'have a good day with ' + food1 + food2;
+	    $('#doSomethingPromise').html(str);
+        return {
+           then: function(callback) {
+                callback('had a good day eating ' + food1);
+           }
+        };
+    }
+
+    haveGoodDayP1('ham', 'eggs').then(function(result) {
+	   console.log('result: ' + result); 
+	   $('#demoPromise').html('result: ' + result);
+    });
+	
+	
+	
+	
+	
+	
+	
+	
+    </script>
+    
+
+</body>
+
+</html>
